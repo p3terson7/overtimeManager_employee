@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GéEM - Schedule Manager</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" type="text/css" href="assets/styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <img src="assets/crest.png" class="img">
+      <div class="d-flex flex-column align-items-start p-0 m-0" style="line-height: 1;">
+        <a class="navbar-brand m-0 p-0 fw-400" style="font-weight: 200;" href="#">Schedule</a>
+        <a class="navbar-brand m-0 p-0" href="#">Manager</a>
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav"></div>
+    </div>
+  </nav>
+
+  <!-- Toast Notifications Container -->
+  <div class="toast-container row sticky-top m-3 d-flex" style="position: fixed; flex-direction: column; right: 1rem; z-index:1080;" id="toastContainer"></div>
+
+  <!-- Main Content -->
+   <div class="container"></div>
+  <div class="container">
+    <!-- Summary Cards -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <div class="summary-card">
+          <h5 class="card-title">Total Overtime (This Month)</h5>
+          <p id="totalOvertime">00:00:00</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="summary-card">
+          <h5 class="card-title">Pending Approvals</h5>
+          <p id="pendingApprovals">0</p>
+        </div>
+      </div>
+    </div>
+
+    <h6 class="text-center mb-4">Employee Overtime Clock</h6>
+
+    <!-- Action Buttons -->
+    <div class="text-center mb-4">
+      <button id="punchInButton" class="btn btn-success action-btn">
+        <i class="fa-solid fa-sign-in-alt"></i> Punch In
+      </button>
+      <button id="punchOutButton" class="btn btn-danger action-btn">
+        <i class="fa-solid fa-sign-out-alt"></i> Punch Out
+      </button>
+    </div>
+
+    <!-- Status Message -->
+    <div id="statusMessage" class="text-center mb-4"></div>
+
+    <!-- Filter Panel -->
+    <div class="row mb-4 filter-panel">
+      <div class="col-md-3">
+        <label for="monthFilter" class="form-label">Month:</label>
+        <input type="number" id="monthFilter" class="form-control" placeholder="MM" min="1" max="12" />
+      </div>
+      <div class="col-md-3">
+        <label for="yearFilter" class="form-label">Year:</label>
+        <input type="number" id="yearFilter" class="form-control" placeholder="YYYY" min="2000" />
+      </div>
+      <div class="col-md-3 align-self-end">
+        <button id="applyFilterButton" class="btn btn-primary w-100">Apply Filter</button>
+      </div>
+      <div class="col-md-3 align-self-end">
+        <button id="clearFilterButton" class="btn btn-secondary w-100">Clear Filter</button>
+      </div>
+    </div>
+
+    <!-- Grouped Overtime Entries Container -->
+    <div id="entriesContainer" class="entries-container">
+      <!-- Day blocks will be inserted here -->
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+   <div class="container">
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="confirmModalLabel"></h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center" id="confirmModalBody"></div>
+          <div class="modal-footer row w-100 m-0">
+            <div class="col">
+              <button type="button" class="btn w-100" data-bs-dismiss="modal">Cancel</button>
+            </div>
+            <div class="col">
+              <button type="button" id="confirmModalConfirmBtn" class="btn w-100">Confirm</button>  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="scripts/scripts.js"></script>
+</body>
+</html>
