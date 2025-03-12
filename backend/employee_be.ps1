@@ -3,7 +3,7 @@
 # Set $username to be the name of the parent folder.
 $username = Split-Path (Split-Path (Split-Path $MyInvocation.MyCommand.Path -Parent) -Parent) -Leaf
 
-$sharedFolder = "$HOME/Documents/ServerData/ServerData2/data"
+$sharedFolder = "$HOME\Documents\ServerData\ServerData2\data"
 $dataFile = Join-Path -Path $sharedFolder -ChildPath "${username}_data.json"
 Write-Host $($dataFile)
 if (!(Test-Path -Path $sharedFolder)) {
@@ -37,7 +37,11 @@ while ($true) {
             $response.Headers.Add("Access-Control-Allow-Origin", "*")
             $response.ContentType = "text/plain"
             $response.StatusCode = 200
-            $response.OutputStream.Write([System.Text.Encoding]::UTF8.GetBytes($username), 0, [System.Text.Encoding]::UTF8.GetBytes($username).Length)
+            $response.OutputStream.Write(
+                [System.Text.Encoding]::UTF8.GetBytes($username), 
+                0, 
+                [System.Text.Encoding]::UTF8.GetBytes($username).Length
+            )
             $response.Close()
             continue
         }
@@ -76,7 +80,8 @@ while ($true) {
                 $data = $reader.ReadToEnd() | ConvertFrom-Json
                 $reader.Close()
 
-                if (-not $data.type -in @("in", "out")) {
+                # Adjusted parentheses for proper evaluation in PowerShell 5.1.
+                if (-not ($data.type -in @("in", "out"))) {
                     throw "Invalid data format: 'type' is required."
                 }
 
@@ -148,7 +153,11 @@ while ($true) {
         }
         else {
             $response.StatusCode = 405
-            $response.OutputStream.Write([System.Text.Encoding]::UTF8.GetBytes("Method Not Allowed"))
+            $response.OutputStream.Write(
+                [System.Text.Encoding]::UTF8.GetBytes("Method Not Allowed"),
+                0,
+                [System.Text.Encoding]::UTF8.GetBytes("Method Not Allowed").Length
+            )
         }
     } catch {
         Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
